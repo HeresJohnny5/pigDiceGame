@@ -12,5 +12,8 @@ var scores, roundScores, activePlayer, dice;
 
 scores = [0, 0];
 roundScore = 0;
-activePlayer = 0;
-dice = Math.floor(Math.random() * 10) + 1;
+activePlayer = 1;
+dice = Math.floor(Math.random() * 5) + 1;
+
+document.querySelector('#current-' + activePlayer).textContent = dice;
+document.querySelector('.dice').style.display = 'none';
