@@ -45,3 +45,21 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 		document.querySelector('.dice').style.display = 'none';
 	}
 });
+
+document.querySelector('.btn-hold').addEventListener('click', function() {
+	var currentScore = document.querySelector('#current-' + activePlayer);
+	
+	scores[activePlayer] += roundScore;
+	
+	currentScore.textContent = 0;
+	
+	document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
+	
+	document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+	
+	activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+	
+	document.querySelector('.player-' + activePlayer + '-panel').classList.add('active');
+	
+	roundScore = 0;
+});
