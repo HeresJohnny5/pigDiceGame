@@ -32,11 +32,13 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
 	} else {
 		document.querySelector('#current-' + activePlayer).textContent = 0;
+		
+		document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
 				
 		activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
 		
-		document.querySelector('.player-0-panel').classList.remove('active');
-				
+		document.querySelector('.player-' + activePlayer + '-panel').classList.add('active');
+						
 		roundScore = 0;		
 	}
 	
