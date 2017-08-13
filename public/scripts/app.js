@@ -27,7 +27,18 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 	diceDom.style.display = 'block';
 	diceDom.src = '/public/images/dice-' + dice + '.png';
 	
-	if(dice !== 1) {
-		document.querySelector('#current-' + activePlayer).textContent = dice;
+	if(dice > 1) {
+		scores[activePlayer] += document.querySelector('#current-' + activePlayer).textContent = dice;
+		
+		document.querySelector('#current-' + activePlayer).textContent = scores[activePlayer];
+		
+		console.log(scores[activePlayer]);
+	} else {
+		scores[activePlayer] = 0;
+
+		document.querySelector('#current-' + activePlayer).textContent = 0;
+		
+		console.log(scores[activePlayer]);
 	}
+
 });
