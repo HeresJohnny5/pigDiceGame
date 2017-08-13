@@ -39,6 +39,8 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 		document.querySelector('#current-' + activePlayer).textContent = 0;
 		
 		console.log(scores[activePlayer]);
+		
+		activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
 	}
 
 });
