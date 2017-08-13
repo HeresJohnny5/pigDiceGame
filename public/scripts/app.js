@@ -41,7 +41,9 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	
 	document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 	
-	nextPlayer();
+	console.log(scores[activePlayer]);
+	
+	gameWon();	
 });
 
 function nextPlayer() {
@@ -58,4 +60,14 @@ function nextPlayer() {
 	roundScore = 0;
 
 	document.querySelector('.dice').style.display = 'none';
+}
+
+function gameWon() {
+	if(scores[activePlayer] >= 10) {
+		document.getElementById('name-' + activePlayer).textContent = 'Winner!';
+		document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+		document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+	} else {
+		nextPlayer();
+	}
 }
