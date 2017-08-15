@@ -11,29 +11,42 @@ GAME RULES:
 1. A player looses his/her ENTIRE score when he/she rolls two 6's in a row. After that, it's the next player's turn.
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, priorRoll;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
 	if(gamePlaying) {
-		var dice = Math.floor(Math.random() * 5) + 1;
+//		var dice = Math.floor(Math.random() * 5) + 1;
+		var dice = Math.floor(Math.random() * (6 - 5 + 1)) + 5;
+
 		var diceDom = document.querySelector('.dice');
 		var currentScore = document.querySelector('#current-' + activePlayer);
-
+		
 		diceDom.style.display = 'block';
 		diceDom.src = '/public/images/dice-' + dice + '.png';
 
-		if(dice !== 1) {
+		if(priorRoll === 6 && dice === 6) {
+			scores[activePlayer] = 0;
+			document.querySelector('.dice').style.display = 'none';
+			document.querySelector('#score-' + activePlayer).textContent = 0;
+			priorRoll = -1;
+			nextPlayer();
+		} else if(dice !== 1) {
 			roundScore += dice;
 			currentScore.textContent = roundScore;
 		} else {
+			priorRoll = -1;
 			nextPlayer();
 		}
+		
+		priorRoll = dice;
 	}
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
+	priorRoll = -1;
+	
 	if(gamePlaying) {
 		scores[activePlayer] += roundScore;
 
@@ -45,7 +58,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
 document.querySelector('.btn-new').addEventListener('click', init);
 
-function nextPlayer() {	
+function nextPlayer() {			
 	var currentScore = document.querySelector('#current-' + activePlayer);
 	
 	currentScore.textContent = 0;
@@ -62,7 +75,7 @@ function nextPlayer() {
 }
 
 function gameWon() {
-	if(scores[activePlayer] >= 10) {
+	if(scores[activePlayer] >= 100) {
 		document.getElementById('name-' + activePlayer).textContent = 'Winner!';
 		document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
 		document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
@@ -78,6 +91,7 @@ function init() {
 	roundScore = 0;
 	activePlayer = 0;
 	gamePlaying = true;
+	priorRoll = -1;
 
 	document.querySelector('.dice').style.display = 'none';
 	document.getElementById('score-0').textContent = 0;
