@@ -8,32 +8,36 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 */
 
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, gamePlaying;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
-	var dice = Math.floor(Math.random() * 5) + 1;
-	var diceDom = document.querySelector('.dice');
-	var currentScore = document.querySelector('#current-' + activePlayer);
-	
-	diceDom.style.display = 'block';
-	diceDom.src = '/public/images/dice-' + dice + '.png';
-	
-	if(dice !== 1) {
-		roundScore += dice;
-		currentScore.textContent = roundScore;
-	} else {
-		nextPlayer();
+	if(gamePlaying) {
+		var dice = Math.floor(Math.random() * 5) + 1;
+		var diceDom = document.querySelector('.dice');
+		var currentScore = document.querySelector('#current-' + activePlayer);
+
+		diceDom.style.display = 'block';
+		diceDom.src = '/public/images/dice-' + dice + '.png';
+
+		if(dice !== 1) {
+			roundScore += dice;
+			currentScore.textContent = roundScore;
+		} else {
+			nextPlayer();
+		}
 	}
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
-	scores[activePlayer] += roundScore;
-	
-	document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
-		
-	gameWon();	
+	if(gamePlaying) {
+		scores[activePlayer] += roundScore;
+
+		document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
+
+		gameWon();
+	}
 });
 
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -60,20 +64,17 @@ function gameWon() {
 		document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
 		document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
 		
-		document.querySelector('.btn-roll').disabled = true;
-		document.querySelector('.btn-hold').disabled = true;
+		gamePlaying = false;
 	} else {
 		nextPlayer();
 	}
 }
 	
 function init() {
-	document.querySelector('.btn-roll').disabled = false;
-	document.querySelector('.btn-hold').disabled = false;
-	
 	scores = [0, 0];
 	roundScore = 0;
 	activePlayer = 0;
+	gamePlaying = true;
 
 	document.querySelector('.dice').style.display = 'none';
 	document.getElementById('score-0').textContent = 0;
