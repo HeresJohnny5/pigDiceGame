@@ -7,6 +7,10 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 */
 
+/* GAME CHALLENGES
+1. A player looses his/her ENTIRE score when he/she rolls two 6's in a row. After that, it's the next player's turn.
+*/
+
 var scores, roundScore, activePlayer, gamePlaying;
 
 init();
