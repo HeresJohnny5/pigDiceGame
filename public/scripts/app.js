@@ -59,12 +59,18 @@ function gameWon() {
 		document.getElementById('name-' + activePlayer).textContent = 'Winner!';
 		document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
 		document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+		
+		document.querySelector('.btn-roll').disabled = true;
+		document.querySelector('.btn-hold').disabled = true;
 	} else {
 		nextPlayer();
 	}
 }
 	
 function init() {
+	document.querySelector('.btn-roll').disabled = false;
+	document.querySelector('.btn-hold').disabled = false;
+	
 	scores = [0, 0];
 	roundScore = 0;
 	activePlayer = 0;
