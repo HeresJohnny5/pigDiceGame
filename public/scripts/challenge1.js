@@ -34,13 +34,12 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 			nextPlayer();
 		} else if(dice !== 1) {
 			roundScore += dice;
+			priorRoll = dice;
 			currentScore.textContent = roundScore;
 		} else {
 			priorRoll = -1;
 			nextPlayer();
 		}
-		
-		priorRoll = dice;
 	}
 });
 
