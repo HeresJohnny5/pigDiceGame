@@ -11,15 +11,13 @@ GAME RULES:
 1. A player looses his/her ENTIRE score when he/she rolls two 6's in a row. After that, it's the next player's turn.
 */
 
-var scores, roundScore, activePlayer, gamePlaying, priorRoll;
+var scores, roundScore, activePlayer, gamePlaying, priorRoll, gameScore;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
 	if(gamePlaying) {
-//		var dice = Math.floor(Math.random() * 5) + 1;
-		var dice = Math.floor(Math.random() * (6 - 5 + 1)) + 5;
-
+		var dice = Math.floor(Math.random() * 5) + 1;
 		var diceDom = document.querySelector('.dice');
 		var currentScore = document.querySelector('#current-' + activePlayer);
 		
@@ -50,7 +48,15 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 		scores[activePlayer] += roundScore;
 
 		document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
-
+		
+		var input = document.querySelector('.final-score').value;
+		
+		if(input) {
+			gameScore = input;
+		} else {
+			console.log('Nope!');
+		}
+		
 		gameWon();
 	}
 });
@@ -73,8 +79,8 @@ function nextPlayer() {
 	document.querySelector('.dice').style.display = 'none';
 }
 
-function gameWon() {
-	if(scores[activePlayer] >= 100) {
+function gameWon() {	
+	if(scores[activePlayer] >= gameScore) {
 		document.getElementById('name-' + activePlayer).textContent = 'Winner!';
 		document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
 		document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
@@ -91,7 +97,7 @@ function init() {
 	activePlayer = 0;
 	gamePlaying = true;
 	priorRoll = -1;
-
+	
 	document.querySelector('.dice').style.display = 'none';
 	document.getElementById('score-0').textContent = 0;
 	document.getElementById('score-1').textContent = 0;
