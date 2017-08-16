@@ -51,7 +51,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 		
 		var input = document.querySelector('.final-score').value;
 		
-		if(input) {
+		if(/^[1-9]\d*$/g.test(input)) {
 			gameScore = input;
 		} else {
 			console.log('Nope!');
